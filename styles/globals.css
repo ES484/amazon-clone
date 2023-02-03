@@ -1,4 +1,21 @@
-:root {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[type='text']:focus {
+  box-shadow: none;
+  border: 0;
+  width: 0;
+}
+@layer components {
+  .submitBtn {
+    @apply bg-amazon_blue text-white w-10/12 h-12 rounded-md absolute bottom-3 hover:bg-amazon_blue-light
+  }
+}
+html, body {
+  overflow-x: hidden;
+}
+/* :root {
   --max-width: 1100px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
@@ -104,4 +121,4 @@ a {
   html {
     color-scheme: dark;
   }
-}
+} */
