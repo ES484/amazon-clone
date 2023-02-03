@@ -14,7 +14,7 @@ const Home: NextPage<Props> = (): JSX.Element => {
     <>
     <Header/>
     <Banner />
-    {/* <Products products= {products} /> */}
+    <Products />
     </>
   )
 }

@@ -1,19 +1,24 @@
-import { Product } from "@/types/index";
-import { FC, useState } from "react";
+import { Product, Products } from "@/types/index";
+import { FC, Suspense } from "react";
 import { isEmpty, map, slice } from 'lodash';
 import ProductWidget from "@/widgets/product/ProductWidget";
 import { useAppSelector } from "@/redux/hooks";
 import { baseImgUrl } from '@/constants/*';
 import Image from "next/image";
+import { useGetProductsQuery } from "@/redux/api/productApi";
+import LoadingSpinner from "../LoadingSpinner";
 type Props = {
     products: Product[]
 }
 
-const Products: FC<Props> = ({ products }): JSX.Element => {
+const Products: FC = (): JSX.Element => {
     const { locale: { dir } } = useAppSelector((state) => state);
+    const { data: products } = useGetProductsQuery<Products>(null);
+    console.log('get products', products)
 
     return (
-        <div className="grid grid-flow-row-dense lg:grid-cols-4 z-30 relative -mt-16 sm:grid-cols-2 md:grid-cols-3 grid-cols-1" dir={dir}>
+        <Suspense fallback={<LoadingSpinner />}>
+            <div className="grid grid-flow-row-dense lg:grid-cols-4 z-30 relative -mt-16 sm:grid-cols-2 md:grid-cols-3 grid-cols-1" dir={dir}>
             {!isEmpty(products) &&
             <>
                 {map(slice(products, 0, 4), (product: Product) => 
@@ -50,6 +55,7 @@ const Products: FC<Props> = ({ products }): JSX.Element => {
             }
             
         </div>
+        </Suspense>
     )
 }
 

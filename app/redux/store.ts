@@ -17,9 +17,10 @@ import storage from 'redux-persist/lib/storage';
 import rootSaga from './sagas/rootSaga';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { HYDRATE, createWrapper } from 'next-redux-wrapper';
-// import { apiSlice } from './api';
 import { isLocal } from '@/constants/*';
 import { rootReducer } from './slices/rootReducer';
+import { apiSlice } from './api';
+import { productsApi } from './api/productApi';
 
 const persistConfig = {
   key: 'root',
@@ -52,7 +53,8 @@ let store: any = configureStore({
             ],
           },
         }).concat([
-          // apiSlice.middleware
+          apiSlice.middleware,
+          productsApi.middleware,
           sagaMiddleware,
           appLogger,
         ])
@@ -70,7 +72,8 @@ let store: any = configureStore({
             ],
           },
         }).concat([
-          // apiSlice.middleware
+          apiSlice.middleware,
+          productsApi.middleware,
           sagaMiddleware,
         ]),
 });

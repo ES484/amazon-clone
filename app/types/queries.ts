@@ -1,3 +1,3 @@
-export type Test = {
-    firstParam: string
-}
+export type AppQueryResult<T> = {
+    data: T;
+};

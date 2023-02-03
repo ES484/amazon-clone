@@ -26,3 +26,8 @@ export interface Product {
     rate: number
   }
  }
+
+ export interface Products {
+  data: Product[]
+ }
+ 
