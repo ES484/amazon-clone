@@ -1,6 +1,6 @@
 import Header from '@/components/Home/Header';
 import Banner from '@/components/Home/Banner';
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router';
 import Products from '@/components/Home/Product';
 import { Product } from '@/types/index';
@@ -21,7 +21,7 @@ const Home: NextPage<Props> = ({ products }): JSX.Element => {
 
 export default Home;
 
-export async function getServerSideProps (context: any) {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const products = await fetch(`https://fakestoreapi.com/products/`)
   .then((res) => res.json());
   
