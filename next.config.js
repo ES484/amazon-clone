@@ -11,7 +11,9 @@ const nextConfig = {
   },
   env: {
     NEXT_PUBLIC_URL: '/',
+    PUBLIC_URL: '/',
   },
+  staticPageGenerationTimeout: 60,
 }
 
 module.exports = nextConfig;
