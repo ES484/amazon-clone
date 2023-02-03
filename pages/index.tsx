@@ -8,27 +8,27 @@ import { Product } from '@/types/index';
 type Props = {
  products: Product[]
 }
-const Home: NextPage<Props> = ({ products }): JSX.Element => {
+const Home: NextPage<Props> = (): JSX.Element => {
   const router = useRouter();
   return (
     <>
     <Header/>
     <Banner />
-    <Products products= {products} />
+    {/* <Products products= {products} /> */}
     </>
   )
 }
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const products = await fetch(`https://fakestoreapi.com/products/`)
-  .then((res) => res.json());
+// export const getServerSideProps: GetServerSideProps = async (context: any) => {
+//   const products = await fetch(`https://fakestoreapi.com/products/`)
+//   .then((res) => res.json());
   
-  return {
-      props: {
-          products
-      }
-  }
-}
+//   return {
+//       props: {
+//           products
+//       }
+//   }
+// }
 
