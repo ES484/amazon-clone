@@ -7,15 +7,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { NextPage } from 'next';
 import { Suspense, useId } from 'react';
-import { useRouter } from "next/router";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { setLocale } from "@/redux/slices/localeSlice";
+import { useRouter } from 'next/router';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setLocale } from '@/redux/slices/localeSlice';
 import { useTranslation } from 'react-i18next';
 import { showToastMessage } from '@/redux/slices/appSettingSlice';
 import MainLayout from '@/layouts/MainLayout';
 import Select from 'react-select';
 import LoadingSpinner from '../LoadingSpinner';
 import { suppressText } from '@/constants/*';
+import { useSession, signIn, signOut } from 'next-auth/react';
+import { isNull } from 'lodash';
 
 interface Languages {
     label: string;
@@ -30,7 +32,9 @@ const Header: NextPage = () => {
     const languages: Languages[] = [
         { label: "English", value: "en" },
         { label: "العربية", value: "ar" }
-      ];
+    ];
+    const session = useSession();
+    console.log({session})
     const handleChangeLang = async (locale: string) => {
         console.log({locale, locale2: router.locale})
         if (locale !== router.locale) {
@@ -106,10 +110,12 @@ const Header: NextPage = () => {
                                         }}
                                     />
                                     </div>
-                                <Link href={'/'}>
-                                    <p suppressHydrationWarning={suppressText}>{t('hello_sign_up')}</p>
+                                <button onClick={isNull(session.data) ? () => signIn() : () => signOut()}>
+                                    <p suppressHydrationWarning={suppressText}>
+                                        {session?.data?.user?.name ? `${t('hello')} ${session?.data?.user?.name}` : t('hello_sign_up')}
+                                    </p>
                                     <p className="font-semibold" suppressHydrationWarning={suppressText}>{t('account_lists')}</p>
-                                </Link>
+                                </button>
                                 <Link href={'/'}>
                                     <p suppressHydrationWarning={suppressText}>{t('orders')}</p>
                                 </Link>

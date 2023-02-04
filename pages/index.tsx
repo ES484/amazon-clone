@@ -4,31 +4,24 @@ import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router';
 import Products from '@/components/Home/Product';
 import { Product } from '@/types/index';
+import LoadingSpinner from '@/components/LoadingSpinner';
+import { Suspense } from 'react';
+import { wrapper } from '@/redux/store';
+import { useAppDispatch } from '@/redux/hooks';
+import { productsApi } from '@/redux/api/productApi';
 
 type Props = {
  products: Product[]
 }
 const Home: NextPage<Props> = (): JSX.Element => {
-  const router = useRouter();
   return (
-    <>
+    <Suspense fallback={<LoadingSpinner />}>
     <Header/>
     <Banner />
     <Products />
-    </>
+    </Suspense>
   )
 }
 
 export default Home;
-
-// export const getServerSideProps: GetServerSideProps = async (context: any) => {
-//   const products = await fetch(`https://fakestoreapi.com/products/`)
-//   .then((res) => res.json());
-  
-//   return {
-//       props: {
-//           products
-//       }
-//   }
-// }
 

@@ -1,6 +1,7 @@
 {
   "language_changed_successfully": "language changed successfully",
   "hello_sign_up": "hello sign up",
+  "hello": "hello",
   "account_lists": "account & lists",
   "orders": "orders",
   "cart": "cart",
@@ -15,5 +16,6 @@
   "home": "home",
   "grocery": "grocery",
   "video_games": "video games",
-  "add_to_cart": "add to cart"
+  "add_to_cart": "add to cart",
+  "sign_out": "sign out"
 }

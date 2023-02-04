@@ -4,20 +4,21 @@ import i18n from '../../i18n/config';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import { setLocale } from '@/redux/slices/localeSlice';
-import dynamic from 'next/dynamic';
+import ToastAppContainer from '../ToastAppContainer';
+// import dynamic from 'next/dynamic';
 
-const ToastAppContainer = dynamic(
-  async () => await import(`@/components/ToastAppContainer`),
-  {
-    ssr: false,
-  }
-);
-const Header = dynamic(
-  async () => await import(`@/components/Home/Header`),
-  {
-    ssr: false,
-  }
-);
+// const ToastAppContainer = dynamic(
+//   async () => await import(`@/components/ToastAppContainer`),
+//   {
+//     ssr: false,
+//   }
+// );
+// const Header = dynamic(
+//   async () => await import(`@/components/Home/Header`),
+//   {
+//     ssr: false,
+//   }
+// );
 
 
 type Props = {
