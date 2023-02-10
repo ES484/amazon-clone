@@ -17,5 +17,12 @@
   "grocery": "grocery",
   "video_games": "video games",
   "add_to_cart": "add to cart",
-  "sign_out": "sign out"
+  "sign_out": "sign out",
+  "your_amazon_cart_is_empty": "your amazon cart is empty",
+  "shopping_cart": "shopping_cart",
+  "price": "price",
+  "quantity": "quantity",
+  "cart_subtotal": "cart subtotal",
+  "sign_in_to_checkout": "sign in to checkout",
+  "proceed_to_checkout": "proceed to checkout"
 }

@@ -1,6 +1,7 @@
 export const appLinks = {
-    root: { path: '/home' },
-    home: { path: '/home' }
+    root: { path: '/' },
+    home: { path: '/' },
+    cart: { path: '/cart'}
 }
 
 export const isLocal = true;

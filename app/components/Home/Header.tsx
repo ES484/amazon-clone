@@ -15,7 +15,7 @@ import { showToastMessage } from '@/redux/slices/appSettingSlice';
 import MainLayout from '@/layouts/MainLayout';
 import Select from 'react-select';
 import LoadingSpinner from '../LoadingSpinner';
-import { suppressText } from '@/constants/*';
+import { appLinks, suppressText } from '@/constants/*';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { isNull } from 'lodash';
 
@@ -34,7 +34,8 @@ const Header: NextPage = () => {
         { label: "العربية", value: "ar" }
     ];
     const session = useSession();
-    console.log({session})
+    const { cart } = useAppSelector((state) => state);
+    console.log('cart items', cart);
     const handleChangeLang = async (locale: string) => {
         console.log({locale, locale2: router.locale})
         if (locale !== router.locale) {
@@ -58,13 +59,12 @@ const Header: NextPage = () => {
 
     return (
         <Suspense fallback={<LoadingSpinner />}>
-            <MainLayout>
                 <header >
                     <div>
                         <div 
                             className="xs:flex-column sm:flex items-center bg-amazon_blue p-1 py-2 flex-grow px-5"
                         >
-                            <div className="flex justify-center mt-2 items-center flex-grow sm:flex-grow-0">
+                            <Link href={appLinks.home.path} className="flex justify-center mt-2 items-center flex-grow sm:flex-grow-0">
                                 <Image
                                     src={'https://links.papareact.com/f90'}
                                     width={100}
@@ -72,7 +72,7 @@ const Header: NextPage = () => {
                                     alt='logo'
                                     className="cursor-pointer object-contain mt-2 me-2"
                                 />
-                            </div>
+                            </Link>
                             <div 
                                 className="bg-white flex justify-between flex-grow flex-shrink h-10 mx-2 rounded-md"
                             >
@@ -119,13 +119,13 @@ const Header: NextPage = () => {
                                 <Link href={'/'}>
                                     <p suppressHydrationWarning={suppressText}>{t('orders')}</p>
                                 </Link>
-                                <div className="link flex">
+                                <Link href={appLinks.cart.path} className="link flex">
                                     <div className="flex pe-2">
                                         <ShoppingCartOutlined className="text-white text-3xl" />
-                                        <p className="text-yellow-500">{0}</p>
+                                        <p className="text-yellow-500">{cart.items.length}</p>
                                     </div>
                                     <p className="hidden sm:block" suppressHydrationWarning={suppressText}>{t('cart')}</p>
-                                </div>
+                                </Link>
                             </div>
                         </div>
                         <div>
@@ -168,7 +168,6 @@ const Header: NextPage = () => {
                         </div>
                     </div>
                 </header>
-            </MainLayout>
        </Suspense>
     )
 }

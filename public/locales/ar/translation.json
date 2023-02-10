@@ -17,5 +17,12 @@
   "grocery": "السوبر ماركت",
   "video_games": "ألعاب الفيديو",
   "add_to_cart": "أضف إلى عربة التسوق",
-  "sign_out": "تسجيل خروج"
+  "sign_out": "تسجيل خروج",
+  "your_amazon_cart_is_empty": "عربة تسوق Amazon الخاصة بك فارغة",
+  "shopping_cart": "عربة التسوق",
+  "price": "السعر",
+  "quantity": "الكمية",
+  "cart_subtotal": "المجموع الجزئي",
+  "sign_in_to_checkout": "لمتابعة عملية الشراء قم بتسجيل الدخول",
+  "proceed_to_checkout": "متابعة عملية الشراء"
 }

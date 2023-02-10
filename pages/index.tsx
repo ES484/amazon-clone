@@ -9,6 +9,7 @@ import { Suspense } from 'react';
 import { wrapper } from '@/redux/store';
 import { useAppDispatch } from '@/redux/hooks';
 import { productsApi } from '@/redux/api/productApi';
+import MainLayout from '@/layouts/MainLayout';
 
 type Props = {
  products: Product[]
@@ -16,9 +17,10 @@ type Props = {
 const Home: NextPage<Props> = (): JSX.Element => {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-    <Header/>
-    <Banner />
-    <Products />
+      <MainLayout>
+        <Banner />
+        <Products />
+      </MainLayout>
     </Suspense>
   )
 }

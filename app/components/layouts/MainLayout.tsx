@@ -5,6 +5,8 @@ import moment from 'moment';
 import { useRouter } from 'next/router';
 import { setLocale } from '@/redux/slices/localeSlice';
 import ToastAppContainer from '../ToastAppContainer';
+import Header from '@/components/Home/Header';
+import { getTotal } from '@/redux/slices/cartSlice';
 // import dynamic from 'next/dynamic';
 
 // const ToastAppContainer = dynamic(
@@ -28,6 +30,7 @@ type Props = {
 const MainLayout: FC<Props> = ({ children }): JSX.Element => {
   const {
     locale,
+    cart: { items }
   } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -42,10 +45,15 @@ const MainLayout: FC<Props> = ({ children }): JSX.Element => {
     moment.locale(router.locale);
   }, [router.locale]);
 
+  useEffect(() => {
+    dispatch(getTotal());
+  }, [items])
+
   return (
     <div
       dir={router.locale === 'ar' ? 'rtl' : 'ltr'}
     >
+      <Header />
       {children}
       <ToastAppContainer />
     </div>

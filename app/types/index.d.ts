@@ -24,10 +24,15 @@ export interface Product {
   rating: {
     count: number;
     rate: number
-  }
+  },
+  quantity?: number,
+  subTotal?: number,
  }
 
  export interface Products {
-  data: Product[]
+  data?: Product[],
+  items?: Product[],
+  totalPrice?: number
  }
+
  

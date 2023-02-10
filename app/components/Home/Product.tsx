@@ -1,6 +1,6 @@
 import { Product, Products } from "@/types/index";
 import { FC, Suspense } from "react";
-import { isEmpty, map, slice } from 'lodash';
+import { isEmpty, isNull, isUndefined, map, slice } from 'lodash';
 import ProductWidget from "@/widgets/product/ProductWidget";
 import { useAppSelector } from "@/redux/hooks";
 import { baseImgUrl } from '@/constants/*';
@@ -45,7 +45,7 @@ const Products: FC = (): JSX.Element => {
                     />
                     )}
                 </div>
-                {map(slice(products, 5, products.length), (product: Product) => 
+                {(!isNull(products) && !isUndefined(products)) && map(slice(products, 5, products.length), (product: Product) => 
                 <ProductWidget 
                     product={product} 
                     key={product.id} 

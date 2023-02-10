@@ -6,13 +6,20 @@ import { ceil, map } from 'lodash';
 import Currency from 'react-currency-formatter';
 import { useTranslation } from 'react-i18next';
 import { suppressText } from '@/constants/*';
+import { useAppDispatch } from '@/redux/hooks';
+import { addToCart } from '@/redux/slices/cartSlice';
 
 type Props = {
     product: Product
 }
+
 const ProductWidget: FC<Props> = ({ product }): JSX.Element => {
     const { t } = useTranslation();
-    console.log('product widget', product)
+    console.log('product widget', product);
+    const dispatch = useAppDispatch();
+    const handleAddToCart = (product: Product) => {
+        dispatch(addToCart(product));
+    }
     return (
         <div className="flex flex-col relative p-8 z-30 bg-white shadow-sm shadow-amazon_blue-light rounded-md mx-5 my-5 space-y-2 cursor-pointer">
             <h2 className="text-end text-gray-500">{product.category}</h2>
@@ -28,7 +35,8 @@ const ProductWidget: FC<Props> = ({ product }): JSX.Element => {
             />
             <div className="flex justify-center py-5">
                 <button className='submitBtn'
-                    suppressHydrationWarning={suppressText}        
+                    suppressHydrationWarning={suppressText}  
+                    onClick={() => {handleAddToCart(product)}}      
                 >
                     {t('add_to_cart')}
                 </button>
