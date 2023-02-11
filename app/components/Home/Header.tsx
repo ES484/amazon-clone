@@ -116,7 +116,7 @@ const Header: NextPage = () => {
                                     </p>
                                     <p className="font-semibold" suppressHydrationWarning={suppressText}>{t('account_lists')}</p>
                                 </button>
-                                <Link href={'/'}>
+                                <Link href={`${appLinks.review.path}`}>
                                     <p suppressHydrationWarning={suppressText}>{t('orders')}</p>
                                 </Link>
                                 <Link href={appLinks.cart.path} className="link flex">

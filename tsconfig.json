@@ -26,9 +26,9 @@
       "@/appImages/*": ["app/assets/images/*"],
       "@/constants/*": ["app/constants.ts"],
       "@/hooks/*": ["app/hooks/*"],
-      "@/styles/*": ["styles/*"],
+      "@/styles/*": ["styles/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/auth/[...nextAuth].js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/auth/[...nextAuth].js", "pages/api/auth/create-checkout-session.js"],
   "exclude": ["node_modules"]
 }

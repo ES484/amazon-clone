@@ -6,20 +6,34 @@ import { Product } from "@/types/index";
 import { isNull, map } from "lodash";
 import { NextPage } from "next";
 import Image from "next/image";
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useTranslation } from "react-i18next";
 import CartITem from "@/components/CartItem";
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
 import Currency from 'react-currency-formatter';
-
+import { loadStripe, Stripe } from '@stripe/stripe-js';
+import axios from 'axios';
+let stripePromise: Promise<Stripe | null> = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY ?? ``);
 const Cart: NextPage = (): JSX.Element => {
     const { t } = useTranslation();
     const { cart: { items } } = useAppSelector((state) => state);
     const { cart } = useAppSelector((state) => state);
     const router = useRouter();
     const session = useSession();
-    
+    const createCheckoutSession = async () => {
+        const stripe = await stripePromise;
+        const checkoutSession = await axios.post("/api/create-checkout-session", {
+            items: items, email: session.data?.user?.email
+        });
+        console.log({checkoutSession})
+        const result = await stripe?.redirectToCheckout({
+            sessionId: checkoutSession.data.id
+        });
+        if(result?.error) {
+            alert(result.error.message)
+        }
+    }
     return (
         <Suspense fallback={<LoadingSpinner />}>
             <MainLayout>
@@ -63,6 +77,8 @@ const Cart: NextPage = (): JSX.Element => {
                         </div>
                     <button
                             disabled={isNull(session.data)}
+                            onClick={() => createCheckoutSession()}
+                            role="link"
                             className={`${isNull(session.data) && 'bg-slate-400 hover:bg-slate-400 cursor-not-allowed'} submitBtn relative w-auto px-5 mt-5 rounded-md`}>
                                 {isNull(session.data) ? t('sign_in_to_checkout') : `${t('proceed_to_checkout')}`}
                         </button>

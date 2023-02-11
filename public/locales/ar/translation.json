@@ -24,5 +24,8 @@
   "quantity": "الكمية",
   "cart_subtotal": "المجموع الجزئي",
   "sign_in_to_checkout": "لمتابعة عملية الشراء قم بتسجيل الدخول",
-  "proceed_to_checkout": "متابعة عملية الشراء"
+  "proceed_to_checkout": "متابعة عملية الشراء",
+  "thank_you_your_order_has_been_confirmed!": "شكرًا لك، تم تأكيد طلبك!",
+  "thank_you_for_shopping_with_us_we_ll_send_a_confirmation_once_your_order_has_shipped_if_you_would_like_to_check_the_status_of_your_orders_please_press_the_link_below.": "شكرًا لك على التسوق معنا، سنرسل تأكيدًا بمجرد شحن الطلب الخاص بك إذا كنت ترغب في التحقق من حالة طلبك (طلباتك)، يرجى الضغط على الرابط أدناه.",
+  "check_your_order": "افحص طلبك"
 }
