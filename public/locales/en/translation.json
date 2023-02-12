@@ -27,5 +27,7 @@
   "proceed_to_checkout": "proceed to checkout",
   "thank_you_your_order_has_been_confirmed!": "thank you, your order has been confirmed!",
   "thank_you_for_shopping_with_us_we_ll_send_a_confirmation_once_your_order_has_shipped_if_you_would_like_to_check_the_status_of_your_orders_please_press_the_link_below.": "thank you for shopping with us we'll send a confirmation once your order has shipped if you would like to check the status of your order(s) please press the link below.",
-  "check_your_order": "check your order"
+  "check_your_order": "check your order",
+  "subtotal": "subtotal",
+  "forItems": "items"
 }

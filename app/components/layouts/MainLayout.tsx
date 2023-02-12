@@ -7,21 +7,6 @@ import { setLocale } from '@/redux/slices/localeSlice';
 import ToastAppContainer from '../ToastAppContainer';
 import Header from '@/components/Home/Header';
 import { getTotal } from '@/redux/slices/cartSlice';
-// import dynamic from 'next/dynamic';
-
-// const ToastAppContainer = dynamic(
-//   async () => await import(`@/components/ToastAppContainer`),
-//   {
-//     ssr: false,
-//   }
-// );
-// const Header = dynamic(
-//   async () => await import(`@/components/Home/Header`),
-//   {
-//     ssr: false,
-//   }
-// );
-
 
 type Props = {
   children: ReactNode | undefined;

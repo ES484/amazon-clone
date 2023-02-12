@@ -45,7 +45,9 @@ const Products: FC = (): JSX.Element => {
                     />
                     )}
                 </div>
-                {(!isNull(products) && !isUndefined(products)) && map(slice(products, 5, products.length), (product: Product) => 
+                {(!isNull(products) && 
+                !isUndefined(products)) && 
+                map(slice(products, 5, products.length), (product: Product) => 
                 <ProductWidget 
                     product={product} 
                     key={product.id} 

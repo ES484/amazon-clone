@@ -18,6 +18,7 @@ module.exports = {
   },
   variants: {
     gridColumn: ['last', 'rtl'],
+    space: ['responsive', 'direction'],
   },
   plugins: [
     require('flowbite/plugin'),

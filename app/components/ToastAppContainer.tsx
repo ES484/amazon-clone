@@ -18,7 +18,6 @@ const ToastAppContainer = () => {
         className={`opacity-90 shadow-lg text-center w-max h-fit`}
         autoClose={1000}
         hideProgressBar={false}
-        // newestOnTop={true}
         transition={Flip}
         closeOnClick
         rtl={isRTL}

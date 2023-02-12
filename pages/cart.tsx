@@ -37,7 +37,7 @@ const Cart: NextPage = (): JSX.Element => {
     return (
         <Suspense fallback={<LoadingSpinner />}>
             <MainLayout>
-                <div className="flex">
+                <div className="md:block lg:flex">
                     {/* left */}
                     <div className="w-[90%] ps-5">
                         <Image
@@ -68,8 +68,9 @@ const Cart: NextPage = (): JSX.Element => {
                     <div className="flex flex-col p-5">
                         <div className="text-lg">
                             <h3 className="font-semibold text-xl pe-1">
-                                {t('subTotal')} ({items.length} {t('items')})
+                                {t('subtotal')} 
                             </h3>
+                            <h3>({items.length} {t('forItems')})</h3>
                             <Currency
                                 quantity= {cart.totalPrice}
                                 currency="USD"

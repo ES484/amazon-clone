@@ -6,7 +6,7 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { NextPage } from 'next';
-import { Suspense, useId } from 'react';
+import { Suspense, useId, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setLocale } from '@/redux/slices/localeSlice';
@@ -18,6 +18,7 @@ import LoadingSpinner from '../LoadingSpinner';
 import { appLinks, suppressText } from '@/constants/*';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { isNull } from 'lodash';
+import NavTabs from './NavTabs';
 
 interface Languages {
     label: string;
@@ -26,6 +27,7 @@ interface Languages {
   
 const Header: NextPage = () => {
     const { locale: {isRTL} } = useAppSelector(state => state);
+    const [isNavOpen, setIsNavOpen] = useState(false);
     const router = useRouter();
     const dispatch = useAppDispatch();
     const { t } = useTranslation();
@@ -56,13 +58,22 @@ const Header: NextPage = () => {
             
         }
       };
-
+    const MenuIcon = () => {
+        return (
+            <li>
+                <Link href={'/'} className="flex space-x-4">
+                    <MenuOutlined />
+                    <p suppressHydrationWarning={suppressText}>{t('all')}</p>
+                </Link>
+            </li>
+        )
+    }
     return (
         <Suspense fallback={<LoadingSpinner />}>
                 <header >
                     <div>
                         <div 
-                            className="xs:flex-column sm:flex items-center bg-amazon_blue p-1 py-2 flex-grow px-5"
+                            className="xs:flex-column md:flex items-center bg-amazon_blue p-1 py-2 flex-grow px-5"
                         >
                             <Link href={appLinks.home.path} className="flex justify-center mt-2 items-center flex-grow sm:flex-grow-0">
                                 <Image
@@ -129,42 +140,56 @@ const Header: NextPage = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="flex items-center bg-amazon_blue-light capitalize text-white px-5 py-2 font-semibold space-x-5">
-                                <Link href={'/'} className="flex space-x-4">
-                                    <MenuOutlined />
-                                    <p suppressHydrationWarning={suppressText}>{t('all')}</p>
-                                </Link>
-                                <Link href={'/'} suppressHydrationWarning={suppressText}>
-                                    {t('today_s_deals')}
-                                </Link>
-                                <Link href={'/'} suppressHydrationWarning={suppressText}>
-                                    {t('mobile_phones')}
-                                </Link>
-                                <Link href={'/'} suppressHydrationWarning={suppressText}>
-                                    {t('help')}
-                                </Link>
-                                <Link href={'/'} suppressHydrationWarning={suppressText}>
-                                    {t('electronics')}
-                                </Link>
-                                <Link href={'/'} suppressHydrationWarning={suppressText}>
-                                    {t('appliances')}
-                                </Link>
-                                <Link href={'/'} suppressHydrationWarning={suppressText}>
-                                    {t('prime')}
-                                </Link>
-                                <Link href={'/'} suppressHydrationWarning={suppressText}>
-                                    {t('fashion')}
-                                </Link>
-                                <Link href={'/'} suppressHydrationWarning={suppressText}>
-                                    {t('home')}
-                                </Link>
-                                <Link href={'/'} suppressHydrationWarning={suppressText}>
-                                    {t('grocery')}
-                                </Link>
-                                <Link href={'/'} suppressHydrationWarning={suppressText}>
-                                    {t('video_games')}
-                                </Link>
-                            </div>
+                        <div className="flex items-center bg-amazon_blue-light capitalize text-white px-5 py-2 font-semibold space-x-5">
+                            <nav>
+                                <section className="MOBILE-MENU flex lg:hidden">
+                                <div
+                                    className="HAMBURGER-ICON space-y-2"
+                                    onClick={() => setIsNavOpen((prev) => !prev)}
+                                >
+                                    <MenuOutlined className="cursor-pointer block lg:hidden" />
+                                </div>
+
+                                <div className={isNavOpen ? "showMenuNav bg-amazon_blue-light w-[75%]" : "hideMenuNav"}>
+                                    <div
+                                    className="absolute top-0 right-0 px-8 py-8 cursor-pointer"
+                                    onClick={() => setIsNavOpen(false)}
+                                    >
+                                    <svg
+                                        className="h-8 w-8 text-gray-600"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <line x1="18" y1="6" x2="6" y2="18" />
+                                        <line x1="6" y1="6" x2="18" y2="18" />
+                                    </svg>
+                                    </div>
+                                    <NavTabs className="ps-12 py-10 min-h-[250px] space-y-5"/>
+                                </div>
+                                </section>
+                                <NavTabs 
+                                    className="DESKTOP-MENU hidden space-x-8 lg:flex"
+                                    children={<MenuIcon/>}
+                                />
+                            </nav>
+      <style>{`
+      .hideMenuNav {
+        display: none;
+      }
+      .showMenuNav {
+        display: block;
+        position: absolute;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 50;
+      }
+    `}</style>
+    </div>
                         </div>
                     </div>
                 </header>

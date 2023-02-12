@@ -21,7 +21,7 @@ const CheckoutProduct: FC<Props> = ({ item }): JSX.Element => {
         dispatch(decrementQuantity(id))
     }
   return (
-    <div key={item.id} className="flex justify-between items-center space-y-12">
+    <div key={item.id} className="flex justify-between items-center space-y-12 space-x-5 rtl:space-x-reverse">
         <Image
             src={item.image}
             alt={item.title}
@@ -38,7 +38,7 @@ const CheckoutProduct: FC<Props> = ({ item }): JSX.Element => {
                     {map((Array(ceil(item.rating.rate))), s => <Star key={useId()} className='text-amber-500' />)}
                 </div>
                 <div className="flex justify-between items-center py-5">
-                <div className="flex space-x-4">
+                <div className="flex space-x-5 rtl:space-x-reverse">
                     <button 
                         className="bg-amazon_blue-light text-white w-12 h-10 rounded-md"
                         onClick={() => handleCartDecrement(item.id)}

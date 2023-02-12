@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Currency from 'react-currency-formatter';
 import { map } from 'lodash';
 import Image from 'next/image';
+import { suppressText } from '@/constants/*';
 
 type Props = {
     order: {
@@ -22,11 +23,15 @@ const Order: FC<Props> = ({ order }) => {
             <div className="my-5">
                 <div className="flex justify-between bg-gray-100 text-gray-500 space-x-5 p-5 rounded-md">
                     <div>
-                        <p className="font-bold text-xs">{t('order_placed')}</p>
+                        <p className="font-bold text-xs" suppressHydrationWarning={suppressText}>
+                            {t('order_placed')}
+                        </p>
                         <p>{moment.unix(order.timestamp).format("DD MM YYYY")}</p>
                     </div>
                     <div>
-                        <p className="font-bold text-xs">{t('total')}</p>
+                        <p className="font-bold text-xs" suppressHydrationWarning={suppressText}>
+                            {t('total')}
+                        </p>
                         <Currency
                             quantity={order.amount}
                             currency="USD"
@@ -36,8 +41,13 @@ const Order: FC<Props> = ({ order }) => {
                         <div>
                             <p className="truncate w-72">{t('order_#')} {order.id}</p>
                         </div>
-                        <div className="text-blue-500 text-end whitespace-nowrap flex-1 text-sm">
-                            <p>{order.items.length} {t('items')}</p>
+                        <div 
+                            className="text-blue-500 text-end whitespace-nowrap flex-1 text-sm" 
+                            suppressHydrationWarning={suppressText}
+                        >
+                            <p suppressHydrationWarning={suppressText}>
+                                {order.items.length} {t('items')}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -49,7 +59,6 @@ const Order: FC<Props> = ({ order }) => {
                             alt={'product_image'} 
                             width={80} 
                             height={30} 
-                            className=""
                         />
                     ))}
                 </div>
