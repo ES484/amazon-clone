@@ -63,7 +63,6 @@ const Header: NextPage = () => {
             <li>
                 <Link href={'/'} className="flex space-x-4">
                     <MenuOutlined />
-                    <p suppressHydrationWarning={suppressText}>{t('all')}</p>
                 </Link>
             </li>
         )
