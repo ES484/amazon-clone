@@ -1,10 +1,8 @@
-import { apiUrl, getHost } from '@/constants/*';
+import { apiUrl } from '@/constants/*';
 import { RootState } from '@/redux/store';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HYDRATE } from 'next-redux-wrapper';
 
-const host = async () =>
-  await getHost().then((req) => req.url.split('//')[1].split('/')[0]);
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
