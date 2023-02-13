@@ -8,7 +8,7 @@ import { baseImgUrl } from '@/constants/*';
 import Image from "next/image";
 import { useGetProductsQuery } from "@/redux/api/productApi";
 import LoadingSpinner from "../LoadingSpinner";
-import { setProducts } from "@/redux/slices/productsSlice";
+import { setFilteredProducts, setProducts } from "@/redux/slices/productsSlice";
 const AllProducts = React.lazy(() => import('./AllProducts'));
 type Props = {
     products?: Product[]
@@ -17,23 +17,17 @@ type Props = {
 const Products: FC = (): JSX.Element => {
     const { locale: { dir }, products: { filteredProducts } } = useAppSelector((state) => state);
     const { data: productsData } = useGetProductsQuery<Products>(null);
-    const [productsInfo, setProductsInfo] = useState<Product[]>([]);
     const dispatch = useAppDispatch();
     useEffect(() => {
         if(productsData) {
             dispatch(setProducts(productsData));
-            setProductsInfo(productsData);
+            dispatch(setFilteredProducts(productsData));
         }
     }, [productsData?.length]);
-    useEffect(() => {
-        if(filteredProducts !== undefined) {
-            setProductsInfo(filteredProducts);
-        }
-    }, [filteredProducts]);
     console.log({filteredProducts, productsData})
     return (
         <Suspense fallback={<LoadingSpinner />}>
-           <AllProducts productsInfo={productsInfo} />
+           <AllProducts productsInfo={filteredProducts} />
         </Suspense>
     )
 }
