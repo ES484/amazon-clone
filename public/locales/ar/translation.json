@@ -28,7 +28,16 @@
   "thank_you_your_order_has_been_confirmed!": "شكرًا لك، تم تأكيد طلبك!",
   "thank_you_for_shopping_with_us_we_ll_send_a_confirmation_once_your_order_has_shipped_if_you_would_like_to_check_the_status_of_your_orders_please_press_the_link_below.": "شكرًا لك على التسوق معنا، سنرسل تأكيدًا بمجرد شحن الطلب الخاص بك إذا كنت ترغب في التحقق من حالة طلبك (طلباتك)، يرجى الضغط على الرابط أدناه.",
   "check_your_order": "افحص طلبك",
+  "your_orders": "طلباتك",
+  "please_sign_in_to_check_your_orders": "من فضلك قم بتسجيل الدخول لتتمكن من فحص طلباتك",
   "subtotal": "المجموع الجزئي",
-  "forItems": "عناصر"
+  "forItems": "عناصر",
+  "your_payment_has_been_failed": "لقد فشلت عملية الدفع الخاصة بك",
+  "you_can_retry_the_payment_below_to_continue": "يمكنك إعادة محاولة الدفع أدناه لمواصلة هذا",
+  "try_again": "حاول مرة أخرى",
+  "back_to_home": "العودة إلى الصفحة الرئيسية",
+  "network_is_not_available_please_check_your_internet": "الشبكة غير متوفرة، يرجى التحقق من الإنترنت الخاص بك",
+  "not_found": "not found",
+  "500-server_side_error_occurred": "500 - حدث خطأ من جانب الخادم"
 
 }

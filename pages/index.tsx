@@ -5,22 +5,42 @@ import { useRouter } from 'next/router';
 import Products from '@/components/Home/Product';
 import { Product } from '@/types/index';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import { Suspense } from 'react';
-import { wrapper } from '@/redux/store';
-import { useAppDispatch } from '@/redux/hooks';
-import { productsApi } from '@/redux/api/productApi';
+import { Suspense, useEffect, useState } from 'react';
 import MainLayout from '@/layouts/MainLayout';
+import OffLineWidget from '@/components/widgets/OfflineWidget';
+import OfflineImg from '@/appImages/offline.jpg';
 
 type Props = {
  products: Product[]
 }
 const Home: NextPage<Props> = (): JSX.Element => {
+  const [isOnline, setIsOnline] = useState(true);
+  useEffect(() => {
+    const handleStatusChange = () => {
+      setIsOnline(navigator.onLine);
+    };
+    window.addEventListener('online', handleStatusChange);
+    window.addEventListener('offline', handleStatusChange);
+    return () => {
+      window.removeEventListener('online', handleStatusChange);
+      window.removeEventListener('offline', handleStatusChange);
+    };
+  }, [isOnline]);
+
   return (
     <Suspense fallback={<LoadingSpinner />}>
+      {isOnline ? (
       <MainLayout>
         <Banner />
         <Products />
-      </MainLayout>
+      </MainLayout>)
+      : (
+        <OffLineWidget
+        message={`network_is_not_available_please_check_your_internet`}
+        img={`${OfflineImg.src}`}
+      />
+      )
+      }
     </Suspense>
   )
 }

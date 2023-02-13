@@ -23,7 +23,7 @@
       "@/types/*": ["app/types/*"],
       "@/pages/*": ["pages/*"],
       "@/appIcons/*": ["app/assets/icons/*"],
-      "@/appImages/*": ["app/assets/images/*"],
+      "@/appImages/*": ["public/assets/images/*"],
       "@/constants/*": ["app/constants.ts"],
       "@/hooks/*": ["app/hooks/*"],
       "@/styles/*": ["styles/*"]

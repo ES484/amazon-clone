@@ -51,7 +51,7 @@ const Order: FC<Props> = ({ order }) => {
                         </div>
                     </div>
                 </div>
-                <div className="flex space-x-10">
+                <div className="flex space-x-10 pt-3 pb-2">
                     {map(order.images, (image) => (
                         <Image 
                             key={image} 

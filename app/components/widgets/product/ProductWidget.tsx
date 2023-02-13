@@ -16,7 +16,6 @@ type Props = {
 
 const ProductWidget: FC<Props> = ({ product }): JSX.Element => {
     const { t } = useTranslation();
-    console.log('product widget', product);
     const dispatch = useAppDispatch();
     const handleAddToCart = (product: Product) => {
         dispatch(addToCart(product));
