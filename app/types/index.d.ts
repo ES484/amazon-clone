@@ -32,6 +32,7 @@ export interface Product {
  export interface Products {
   data?: Product[],
   items?: Product[],
+  filteredProducts?: Product[],
   totalPrice?: number
  }
 

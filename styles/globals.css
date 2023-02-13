@@ -22,3 +22,15 @@ p:first-letter,
 button:first-letter {
   text-transform: uppercase;
 }
+
+.hideMenuNav {
+  display: none;
+}
+.showMenuNav {
+  display: block;
+  position: absolute;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 50;
+}

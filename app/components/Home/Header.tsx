@@ -17,8 +17,10 @@ import Select from 'react-select';
 import LoadingSpinner from '../LoadingSpinner';
 import { appLinks, suppressText } from '@/constants/*';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { isNull } from 'lodash';
+import { debounce, filter, isNull, lowerCase } from 'lodash';
 import NavTabs from './NavTabs';
+import { setFilteredProducts, setProducts } from '@/redux/slices/productsSlice';
+import { Product, Products } from '@/types/index';
 
 interface Languages {
     label: string;
@@ -36,8 +38,8 @@ const Header: NextPage = () => {
         { label: "العربية", value: "ar" }
     ];
     const session = useSession();
-    const { cart } = useAppSelector((state) => state);
-    console.log('cart items', cart);
+    const { cart, products } = useAppSelector((state) => state);
+
     const handleChangeLang = async (locale: string) => {
         console.log({locale, locale2: router.locale})
         if (locale !== router.locale) {
@@ -57,7 +59,19 @@ const Header: NextPage = () => {
             )
             
         }
-      };
+    };
+    
+    const handleSearch = (e: any) => {
+        const filterResult = filter(products.data, (product) => lowerCase(product.title).includes(lowerCase(e.target.value)))
+        console.log({filterResult, products})
+        if(e.target.value === '') {
+            dispatch(setFilteredProducts(products.data));
+        }
+        else {
+            dispatch(setFilteredProducts(filterResult));
+        }
+    }
+    
     const MenuIcon = () => {
         return (
             <li>
@@ -72,8 +86,7 @@ const Header: NextPage = () => {
                 <header >
                     <div>
                         <div 
-                            className="xs:flex-column md:flex items-center bg-amazon_blue p-1 py-2 flex-grow px-5"
-                        >
+                            className="xs:flex-column md:flex items-center bg-amazon_blue p-1 py-2 flex-grow px-5">
                             <Link href={appLinks.home.path} className="flex justify-center mt-2 items-center flex-grow sm:flex-grow-0">
                                 <Image
                                     src={'https://links.papareact.com/f90'}
@@ -86,7 +99,9 @@ const Header: NextPage = () => {
                             <div 
                                 className="bg-white flex justify-between flex-grow flex-shrink h-10 mx-2 rounded-md"
                             >
-                                <input type="text" className="bg-transparent flex-grow outline-none p-2  border-0" />
+                                <input type="text" className="bg-transparent flex-grow outline-none p-2 border-0"
+                                    onChange={debounce((e) => handleSearch(e), 400)}
+                                />
                                 <div 
                                     className={`bg-yellow-300 p-2 flex items-center border-0 hover:bg-yellow-500 cursor-pointer 
                                     ${isRTL ? 'rounded-l-md': 'rounded-r-md'}`}
@@ -139,56 +154,43 @@ const Header: NextPage = () => {
                             </div>
                         </div>
                         <div>
-                        <div className="flex items-center bg-amazon_blue-light capitalize text-white px-5 py-2 font-semibold space-x-5">
-                            <nav>
-                                <section className="MOBILE-MENU flex lg:hidden">
-                                <div
-                                    className="HAMBURGER-ICON space-y-2"
-                                    onClick={() => setIsNavOpen((prev) => !prev)}
-                                >
-                                    <MenuOutlined className="cursor-pointer block lg:hidden" />
-                                </div>
-
-                                <div className={isNavOpen ? "showMenuNav bg-amazon_blue-light w-[75%]" : "hideMenuNav"}>
+                            <div className="flex items-center bg-amazon_blue-light capitalize text-white px-5 py-2 font-semibold space-x-5">
+                                <nav>
+                                    <section className="MOBILE-MENU flex lg:hidden">
                                     <div
-                                    className="absolute top-0 right-0 px-8 py-8 cursor-pointer"
-                                    onClick={() => setIsNavOpen(false)}
+                                        className="HAMBURGER-ICON space-y-2"
+                                        onClick={() => setIsNavOpen((prev) => !prev)}
                                     >
-                                    <svg
-                                        className="h-8 w-8 text-gray-600"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <line x1="18" y1="6" x2="6" y2="18" />
-                                        <line x1="6" y1="6" x2="18" y2="18" />
-                                    </svg>
+                                        <MenuOutlined className="cursor-pointer block lg:hidden" />
                                     </div>
-                                    <NavTabs className="ps-12 py-10 min-h-[250px] space-y-5"/>
-                                </div>
-                                </section>
-                                <NavTabs 
-                                    className="DESKTOP-MENU hidden space-x-8 lg:flex"
-                                    children={<MenuIcon/>}
-                                />
-                            </nav>
-      <style>{`
-      .hideMenuNav {
-        display: none;
-      }
-      .showMenuNav {
-        display: block;
-        position: absolute;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        z-index: 50;
-      }
-    `}</style>
-    </div>
+
+                                    <div className={isNavOpen ? "showMenuNav bg-amazon_blue-light w-[75%]" : "hideMenuNav"}>
+                                        <div
+                                        className="absolute top-0 right-0 px-8 py-8 cursor-pointer"
+                                        onClick={() => setIsNavOpen(false)}
+                                        >
+                                        <svg
+                                            className="h-8 w-8 text-gray-600"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg>
+                                        </div>
+                                        <NavTabs className="ps-12 py-10 min-h-[250px] space-y-5"/>
+                                    </div>
+                                    </section>
+                                    <NavTabs 
+                                        className="DESKTOP-MENU hidden space-x-8 lg:flex"
+                                        children={<MenuIcon/>}
+                                    />
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </header>
