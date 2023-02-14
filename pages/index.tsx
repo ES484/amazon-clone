@@ -9,12 +9,14 @@ import { Suspense, useEffect, useState } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import OffLineWidget from '@/components/widgets/OfflineWidget';
 import OfflineImg from '@/appImages/offline.jpg';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
  products: Product[]
 }
 const Home: NextPage<Props> = (): JSX.Element => {
   const [isOnline, setIsOnline] = useState(true);
+  const { t } = useTranslation();
   useEffect(() => {
     const handleStatusChange = () => {
       setIsOnline(navigator.onLine);
@@ -36,7 +38,7 @@ const Home: NextPage<Props> = (): JSX.Element => {
       </MainLayout>)
       : (
         <OffLineWidget
-        message={`network_is_not_available_please_check_your_internet`}
+        message={t('network_is_not_available_please_check_your_internet')}
         img={`${OfflineImg.src}`}
       />
       )
