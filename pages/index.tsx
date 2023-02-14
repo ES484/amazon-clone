@@ -10,11 +10,13 @@ import MainLayout from '@/layouts/MainLayout';
 import OffLineWidget from '@/components/widgets/OfflineWidget';
 import OfflineImg from '@/appImages/offline.jpg';
 import { useTranslation } from 'react-i18next';
+import { wrapper } from '@/redux/store';
 
 type Props = {
- products: Product[]
+ products: Product[],
+ url: string
 }
-const Home: NextPage<Props> = (): JSX.Element => {
+const Home: NextPage<Props> = ({ url }): JSX.Element => {
   const [isOnline, setIsOnline] = useState(true);
   const { t } = useTranslation();
   useEffect(() => {
@@ -28,7 +30,7 @@ const Home: NextPage<Props> = (): JSX.Element => {
       window.removeEventListener('offline', handleStatusChange);
     };
   }, [isOnline]);
-
+console.log('HostUrl', url)
   return (
     <Suspense fallback={<LoadingSpinner />}>
       {isOnline ? (
@@ -48,4 +50,20 @@ const Home: NextPage<Props> = (): JSX.Element => {
 }
 
 export default Home;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    async ({ req }) => {
+      if (!req.headers.host) {
+        return {
+          notFound: true,
+        };
+      }
+      return {
+        props: {
+          url: req.headers.host,
+        },
+      };
+    }
+);
 

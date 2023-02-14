@@ -9,10 +9,8 @@ import Image from "next/image";
 import { useGetProductsQuery } from "@/redux/api/productApi";
 import LoadingSpinner from "../LoadingSpinner";
 import { setFilteredProducts, setProducts } from "@/redux/slices/productsSlice";
+import { wrapper } from "@/redux/store";
 const AllProducts = React.lazy(() => import('./AllProducts'));
-type Props = {
-    products?: Product[]
-}
 
 const Products: FC = (): JSX.Element => {
     const { locale: { dir }, products: { filteredProducts } } = useAppSelector((state) => state);
@@ -33,3 +31,5 @@ const Products: FC = (): JSX.Element => {
 }
 
 export default Products;
+
+

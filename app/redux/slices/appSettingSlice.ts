@@ -14,7 +14,12 @@ export const appSettingSlice = createSlice({
   name: 'appSetting',
   initialState,
   reducers: {
-   
+    setUrl: (state: typeof initialState, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        url: action.payload,
+      };
+    },
     showToastMessage: (
       state: typeof initialState,
       action: PayloadAction<{
@@ -53,6 +58,7 @@ export const appSettingSlice = createSlice({
 });
 
 export const {
+  setUrl,
   showToastMessage,
   hideToastMessage,
   resetAppSetting

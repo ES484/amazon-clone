@@ -5,12 +5,12 @@ import Image from 'next/image';
 import { FC } from 'react';
 import { baseImgUrl } from '@/constants/*';
 import ProductWidget from '@/components/widgets/product/ProductWidget';
+import { wrapper } from '@/redux/store';
 type Props = {
     productsInfo: Product[]
 }
 const AllProducts:FC<Props> = ({ productsInfo }) => {
     const { locale: { dir } } = useAppSelector((state) => state);
-    console.log({productsInfo})
     return (
         <>
         {!isNull(productsInfo) && !isUndefined(productsInfo) && productsInfo.length !== 0 &&
@@ -51,4 +51,6 @@ const AllProducts:FC<Props> = ({ productsInfo }) => {
         </>
     )
 }
+
+
 export default AllProducts;

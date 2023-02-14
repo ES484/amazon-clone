@@ -12,16 +12,19 @@ import CartITem from "@/components/CartItem";
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
 import Currency from 'react-currency-formatter';
-
 import CheckoutButton from "@/components/widgets/product/CheckoutButton";
+import { wrapper } from "@/redux/store";
 
-const Cart: NextPage = (): JSX.Element => {
+type Props = {
+    url: string
+}
+const Cart: NextPage<Props> = ({ url }): JSX.Element => {
     const { t } = useTranslation();
     const { cart: { items } } = useAppSelector((state) => state);
     const { cart } = useAppSelector((state) => state);
     const router = useRouter();
     const session = useSession();
-    
+    console.log('host url', url)
     return (
         <Suspense fallback={<LoadingSpinner />}>
             <MainLayout>
@@ -76,3 +79,19 @@ const Cart: NextPage = (): JSX.Element => {
 }
 
 export default Cart;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+    (store) =>
+      async ({ req }) => {
+        if (!req.headers.host) {
+          return {
+            notFound: true,
+          };
+        }
+        return {
+          props: {
+            url: req.headers.host,
+          },
+        };
+      }
+);
